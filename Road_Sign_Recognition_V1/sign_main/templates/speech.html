@@ -1,0 +1,782 @@
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARVIND</title>
+</head>
+<body>
+ <style>
+  .hi
+  {
+    text-align: center;
+    color:rgb(212, 142, 203);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:larger;
+  }
+  body {
+    font-family: Arial;
+    padding: 10px;
+    background-image: linear-gradient(rgb(39, 228, 212), rgb(226, 245, 241));
+    
+  }
+ </style>
+    <div class="hi">
+      <br>
+      <br>
+      <h1>ROAD SIGN RECOGNITION</h1>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <form action = 'http://127.0.0.1:5000/speech' method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" placeholder="Upload" >
+        <br>
+        <label for="voices">Choose a Voice Assistant</label>
+        <select name="voices" id="voices">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <br>
+        <input type = "submit" value="Submit">  
+        <br>
+        
+        <br>
+        <br>
+        <img src="{{ url_for('static', filename= task1) }}" alt="Please Upload the Image Above">                          
+        
+        <br>
+       
+        <br>
+       
+      <br>
+      <br>
+    
+          
+          <br>
+
+      </form>
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Admonition System</title>
+    <link rel="stylesheet" href="stylehome.css">
+    <script src="https://kit.fontawesome.com/70695e9957.js" crossorigin="anonymous"></script>
+    <style>
+      *{
+            padding:0;
+            margin: 0;
+            font-family: 'Poppins',sans-serif;
+            border: none;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        body{
+            background: black;
+            color: #fff;
+            
+        }
+        #header{
+            width: 100%;
+            height: 100vh;
+            background-image: url('blk.jpg');
+            background-size: cover;
+            background-position: centre;
+        }
+        .container{
+            padding: 10pc 10%;
+        }
+        nav{
+            display: flex;
+            align-items: centre;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .logo{
+            width: 140px;
+        }
+        
+        nav ul li{
+            display: inline-block;
+            list-style: none;
+            margin: 10px 20px;
+        }
+        
+        nav ul li a{
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        nav ul li a::after{
+            content: '';
+            width: 100%;
+            height: 3px;
+            background: #ff004f;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: 0.5s;
+        }
+        nav ul li a:hover::after{
+            width: 100%;
+        }
+        .header-text{
+            margin-top: 20%;
+            font-size: 30px;
+        }
+        .header-text h1{
+            font-size: 60px;
+            margin-top: 20px;
+            text-transform:capitalize;
+        }
+         span{
+            color: #ff004f;
+        }
+        /*about*/
+        #about{
+            padding: 80px 0;
+            color: #ababab;
+        }
+        .row{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .about-col-1{
+            flex-basis: 35%;
+        }
+        .about-col-1 img{
+            width: 100%;
+            border-radius: 15px;
+        }
+        .about-col-2{
+            flex-basis: 60%;
+        }
+        .sub-title{
+            font-size: 60px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .tab-titles{
+            display: flex;
+            margin: 20px 0 40px;
+        }
+        .tab-links{
+            margin-right: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+        .tab-links::after{
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #ff004f;
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            transition: 0.5s;
+        }
+        .tab-links.active-link::after{
+            width: 50%;
+        }
+        .tab-contents ul li{
+            list-style: none;
+            margin: 10px 0;
+        }
+        .tab-contents ul li span{
+            color: #ff004f;
+            font-size: 14px;
+        }
+        .tab-contents{
+            display: none;
+        }
+        .tab-contents.active-tab{
+            display: block;
+        }
+        #services{
+            padding: 30px 0 ;
+        }
+        .services-list{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+            grid-gap: 40px;
+            margin-top: 50px;
+        }
+        .services-list div{
+            background: #262626;
+            padding: 40px;
+            font-size: 13px;
+            font-weight: 300;
+            border-right: 10px;
+        }
+        .services-list div i{
+            font-size: 50px;
+            margin-bottom: 30px;
+        }
+        .services-list div h2{
+            font-size: 30px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .services-list div a{
+            text-decoration: none;
+            color: #fff;
+            font-size: 12px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .services-list div:hover{
+            background: #ff004f;
+            transform: translateY(-10px);
+        }
+        #portfolio{
+            padding: 50px 0;
+        }
+        .work-list{
+            display: grid;
+                grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+                grid-gap: 40px;
+                margin-top: 50px;
+        }
+        .work{
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .work img{
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            transition: transform 0.5s;
+        }
+        .layer{
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6),#ff004f);
+            border-radius: 10px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 0 40px;
+            text-align: center;
+            font-size: 14px;
+            transition: height 0.5s;
+        }
+        .layer h3{
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .layer a{
+            margin-top: 20px;
+            color: #ff004f;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 60px;
+            background: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+        }
+        .work:hover img{
+            transform: scale(1.1);
+        }
+        .work:hover .layer{
+            height: 100%;
+        }
+        .btn{
+            display: block;
+            margin: 50px auto;
+            /* width: fit-content; */
+            border: 1px solid #ff004f;
+            padding: 14px 50px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #fff;
+            /* transition: background 0.5s; */
+        }
+        .btn:hover{
+            background: #ff004f;
+        }
+        .contact-left{
+            flex-basis: 35%;
+        }
+        .contact-right{
+            flex-basis: 60%;
+        }
+        .contact-left p{
+            margin-top: 30px;
+        }
+        .contact-left p i{
+            color: #ff004f;
+            margin-right: 15px;
+            font-size: 25px;
+        }
+        .social-icons{
+            margin-top: 30px;
+        }
+        .social-icons a{
+            text-decoration: none;
+            font-size: 30px;
+            margin-right: 15px;
+            color: #ababab;
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        .social-icons a:hover{
+            color: #ff004f;
+            transform: translateY(-5px);
+        }
+        .btn.btn2{
+            display: inline-block;
+            background: #ff004f;
+        }
+        .contact-right form{
+            width: 100%;
+        }
+        .input{
+background-color: black;
+         }
+        form input, form textarea{
+            width: 100%;
+            border: 0;
+            outline: none;
+            background: #262626;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 18px;
+            border-radius: 6px;
+        }
+        form .btn2{
+            padding: 14px 60px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .copyright{
+            width: 100%;
+            text-align: center;
+            padding: 25px 0;
+            background: #262626;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+        .copyright i{
+            color: #ff004f;
+        }
+        nav .fas{
+            display: none;
+        }
+        @media only screen and (max-with: 600px){
+            #header{
+                background-image: url(istockphoto-906837420-612x612.jpg);
+            }
+            .header-text{
+                margin-top: 100%;
+                font-size: 16px;
+            }
+            .header-text h1{
+                font-size: 30px;
+            }
+            nav .fas{
+                display: none;
+                font-size: 25px;
+            }
+            nav ul{
+                background: #ff004f;
+                position: fixed;
+                top: 0;
+                right: -200px;
+                width: 200px;
+                height: 100vh;
+                padding-top: 50px;
+                z-index: 2;
+                transition: right 0.5s ;
+            }
+            nav ul li{
+                display: block;
+                margin: 25px;
+            }
+            nav ul .fas{
+                position: absolute;
+                top: 25px;
+                left: 25px;
+                cursor: pointer;
+            }
+            .sub-title{
+                font-size: 40px;
+            }
+            .about-col-1,.about-col-2{
+                flex-basis: 100%;
+            }
+            .about-col-1{
+                margin-bottom: 30px;
+            }
+            .about-col-2{
+                font-size: 14px;
+            }
+            .tab-links{
+                font-size: 16px;
+                margin-right: 20px;
+            }
+            .contact-left, .contact-right{
+                flex-basis: 100%;
+            }
+            .copyright{
+                font-size: 14px;
+            }
+        }
+        #span{
+            color: #61b752;
+            margin-top: -20px;
+            display: block;
+        }
+        .input_field{
+            color:white;
+            transition: .4s;
+            background-color: white;
+        }
+        .btn{
+            background-color: #ff004f;
+            text-decoration: #ff004f;
+            transition: .4s;
+        }
+        .container1{
+            height: 50px;
+            width: 430px;
+
+            left:115vh;
+            align-items:center;
+            position: relative;
+          }
+          .container1 .wrapper{
+            position: relative;
+            height: 500px;
+            width: 100%;
+            border-radius: 10px;
+            background: #000;
+            border: 2px dashed #ff004f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow:hidden;
+          }
+          .wrapper.active{
+            border: none;
+          }
+          .wrapper .image{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .wrapper img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+          .wrapper .icon{
+            font-size: 100px;
+            color: #ff004f;
+          }
+          .wrapper .text{
+            font-size: 20px;
+            font-weight: 500;
+            color: #ff004f;
+          }
+          .wrapper #cancel-btn i{
+            position: absolute;
+            font-size: 20px;
+            right: 15px;
+            top: 15px;
+            color: #ff004f;
+            cursor: pointer;
+            display: none;
+          }
+          .wrapper.active:hover #cancel-btn i{
+            display: block;
+          }
+          .wrapper #cancel-btn i:hover{
+            color: #000;
+          }
+          .wrapper .file-name{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            padding: 8px 0;
+            font-size: 18px;
+            color: #fff;
+            display: none;
+            background:#ff004f;
+            
+          }
+          .wrapper.active:hover .file-name{
+            display: block;
+          }
+          .container1 #custom-btn{
+            margin-top: 30px;
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background:#ff004f;
+            
+          }
+        /* Add your existing CSS styles here */
+	main {
+                      flex-grow: 2;
+                      display: flex;
+                      justify-content: space-around;
+                      align-items: center;
+                      background-color: #fff;
+                      border-radius: 12px;
+                      margin-bottom: 2em;
+                    }
+                    @keyframes bg-pulse {
+                      0% {
+                        background-color: #fff;
+                      }
+
+                      50% {
+                        background-color: #c7ecee;
+                      }
+
+                      100% {
+                        backgrouond-color: #fff;
+                      }
+                    }
+                    main.speaking {
+                      animation: bg-pulse 1.5s alternate ease-in-out infinite;
+                    }
+                    .input {
+                      text-align: center;
+                      width: 100%;
+                    }
+                    label {
+                      display: block;
+                      font-size: 18px;
+                      margin-bottom: 1em;
+                    }
+                    .field {
+                      margin-bottom: 2em;
+                    }
+                    input {
+                      font-size: 24px;
+                      padding: 0.5em;
+                      border: 1px solid rgba(13, 18, 43, 0.25);
+                      border-radius: 6px;
+                      width: 75%;
+                      display: inline-block;
+                      transition: border-color 0.25s;
+                      text-align: center;
+      			      background-color: #fff
+                    }
+                    input:focus,
+                    select:focus {
+                      border-color: rgba(13, 18, 43, 1);
+                    }
+                    select {
+                      width: 75%;
+                      font-size: 24px;
+                      padding: 0.5em;
+                      border: 1px solid rgba(13, 18, 43, 0.25);
+                      border-radius: 6px;
+                      transition: border-color 0.25s;
+                    }
+                    button {
+                      font-size: 18px;
+                      font-weight: 200;
+                      padding: 1em;
+                      width: 200px;
+                      background: transparent;
+                      border: 4px solid #f22f46;
+                      border-radius: 4px;
+                      transition: all 0.4s ease 0s;
+                      cursor: pointer;
+                      color: #f22f46;
+                      margin-bottom: 2em;
+                    }
+                    button:hover,
+                    button:focus {
+                      background: #f22f46;
+                      color: #fff;
+                    }
+
+.mine #custom-btn{
+color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+           background:#ff004f;
+}
+#submit-btn{
+background:#ff004f;
+}
+
+                    a {
+                      color: #0d122b;
+                    }
+                    .error {
+                      color: #f22f46;
+                      text-align: center;
+                    }
+                    footer {
+                      border-top: 1px solid #0d122b;
+                      text-align: center;
+                    }
+      				.mine{
+      					margin-top:155px;
+
+position: absolute;
+ width: 30%;
+margin-left:770px;
+      				}
+#upload2{
+margin-top:750px;
+margin-bottom:490px;
+margin-left:479px;
+position:absolute;
+}
+#bruh{
+margin-bottom:160px;
+}
+#op{
+color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+           background:#ff004f;
+}
+.mine{
+    margin-left:370px;
+    margin-bottom: 1000px;
+    margin-top: 77px;
+position:absolute;
+}
+
+
+        /* Your existing CSS styles */
+    </style>
+</head>
+<body>
+    <div id="header">
+        <!-- Your existing header content goes here -->
+      <div class="container">
+                <nav>
+                    <!-- <img src="images/logo.png" class="logo">  -->
+                    <h2 class="chikky" ><span>Road</span>Signs
+                    
+                    </h2>
+                    <ul id="sidemenu">
+                        <li><a href="mainpage">Home</a></li>
+                        <!-- <li><a href="">About</a></li> -->
+                        <!-- <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li> -->
+                        <li><a href="predict">Get Label</a></li>
+<li><a href="speech">Get Speech</a></li>
+                        <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+                    </ul>
+                    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+                </nav>
+                <!-- <div class="header-text">
+                   
+                    <h1>Hi <span>User</span><br>Welcome to Our website</h1>
+                </div> -->
+                
+                <div class="mine">
+                    <h2> <span>Choose</span>Image</h2>
+                    <main>
+                        
+                        <form action = 'http://127.0.0.1:5000/speech' method = "post" class="input" id="voice-form" enctype="multipart/form-data"> 
+                            <div class="field">
+                            <input type="file" name="file" placeholder="Upload" >
+                            <br>
+                            <label for="voices">Choose a Voice Assistant</label>
+                            <select name="voices" id="voices">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <br>
+                            <input type = "submit" value="Submit">  
+                            <br>
+                            </div>
+                            <br>
+                            <br>
+                            <img src="{{ url_for('static', filename= task1) }}" alt="Please Upload the Image Above" height="150px">  
+                    
+                       
+                    
+                </div>
+        </div>
+    </div>
+
+   
+
+    
+     
+    <!-- <div class="mine">
+            
+    <main>
+        
+        <form action = 'http://127.0.0.1:5000/speech' method = "post" class="input" id="voice-form" enctype="multipart/form-data"> 
+            <div class="field">
+            <input type="file" name="file" placeholder="Upload" >
+            <br>
+            <label for="voices">Choose a Voice Assistant</label>
+            <select name="voices" id="voices">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <br>
+            <input type = "submit" value="Submit">  
+            <br>
+            </div>
+            <br>
+            <br>
+            <img src="{{ url_for('static', filename= task1) }}" alt="Please Upload the Image Above">  
+    
+       
+    
+</div> -->
+
+   
+
+
+
+
+</body>
+</html>
