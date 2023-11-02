@@ -78,8 +78,6 @@ def finds(image_path):
     
     disease=tensorflow.keras.utils.load_img(image_path)
 
-    plt.imshow(disease)
-
     
     classresult=np.argmax(result,axis=1)
     return classes[classresult[0]] 
